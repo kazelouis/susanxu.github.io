@@ -491,9 +491,15 @@ button[type="submit"]:hover {
 
 
 .shooting-star {
-    background: red !important; /* Force visible color */
-    z-index: 9999 !important; /* Force top layer */
-}
+    position: fixed !important;  /* ensure it’s fixed on screen */
+    top: 0;                       /* default until GSAP moves it */
+    left: 0;                      /* default until GSAP moves it */
+    width: 150px !important;      /* visible length */
+    height: 2px !important;       /* visible thickness */
+    background: red !important;   /* your debug color */
+    opacity: 1 !important;        /* force fully visible */
+    z-index: 9999 !important;     /* above everything */
+  }
 
 .shooting-star::before {
     content: '';
