@@ -3,57 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Portfolio</title>
+    <title>Susan's Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="glass-nav">
-        <div class="nav-content">
-            <div class="logo">PORTFOLIO</div>
-            <ul class="nav-links">
-                <li><a href="#work">Work</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="menu-toggle">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation (Keep previous nav) -->
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="animated-headline">
-                <span class="gradient-text">Creating Digital</span><br>
-                <span class="gradient-text">Experiences</span>
-            </h1>
-            <p class="hero-subtitle">Design & Development</p>
-            <a href="#work" class="cta-button">View Work</a>
-        </div>
-        <div class="floating-orb"></div>
-        <!-- Add after the floating orb div -->
-        <div class="particles-container">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <!-- Add more particles as needed -->
+    <!-- Work Section Update -->
+    <section id="work" class="section work-section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <article class="project-card glass-card">
+                <div class="project-image" style="background-image: url('project1.jpg')"></div>
+                <div class="project-content">
+                    <h3>AI Interface Design</h3>
+                    <p>Next-gen AI dashboard with real-time analytics</p>
+                    <div class="project-tags">
+                        <span>UI/UX</span>
+                        <span>React</span>
+                        <span>AI</span>
+                    </div>
+                </div>
+            </article>
+            <!-- Repeat for other projects -->
         </div>
     </section>
 
-    <!-- Work Section -->
-    <section id="work" class="work-section">
-        <h2>Featured Projects</h2>
-        <div class="projects-grid">
-            <!-- Repeat this block for each project -->
-            <div class="project-card glass-card">
-                <div class="project-image"></div>
-                <h3>Project Title</h3>
-                <p>Project description lorem ipsum dolor sit amet.</p>
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="about-container glass-card">
+            <div class="profile-image"></div>
+            <div class="about-content">
+                <h2 class="section-title">About Me</h2>
+                <p class="about-text">Digital creator specializing in immersive experiences and futuristic interfaces.</p>
+                <div class="skill-bars">
+                    <div class="skill">
+                        <label>UI/UX Design</label>
+                        <div class="progress-bar"><span style="width: 90%"></span></div>
+                    </div>
+                    <div class="skill">
+                        <label>Web Development</label>
+                        <div class="progress-bar"><span style="width: 85%"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="contact-container">
+            <div class="contact-form glass-card">
+                <h2 class="section-title">Get in Touch</h2>
+                <form>
+                    <div class="form-group">
+                        <input type="text" required>
+                        <label>Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea required></textarea>
+                        <label>Message</label>
+                    </div>
+                    <button type="submit" class="cta-button">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            <div class="contact-info glass-card">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                </div>
             </div>
         </div>
     </section>
