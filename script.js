@@ -126,6 +126,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createParticles();
 
+    // Shooting Stars Animation
+    function createShootingStar() {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        
+        // Random start position and angle
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight * 0.4;
+        const angle = -15 + Math.random() * 30; // -15 to +15 degrees
+        
+        // Set initial position
+        gsap.set(star, {
+            x: startX,
+            y: startY,
+            rotation: angle,
+            opacity: 0
+        });
+
+        // Animate the star
+        gsap.to(star, {
+            duration: 1.5 + Math.random() * 2,
+            x: `+=${window.innerWidth * 1.5}`,
+            y: `+=${window.innerWidth * Math.tan(angle * Math.PI/180)}`,
+            opacity: 1,
+            ease: "power1.out",
+            onComplete: () => star.remove(),
+            modifiers: {
+                x: x => parseFloat(x) % (window.innerWidth * 2),
+                y: y => parseFloat(y) % (window.innerHeight * 2)
+            }
+        });
+
+        document.body.appendChild(star);
+    }
+
+    // Create shooting stars randomly
+    setInterval(() => {
+        createShootingStar();
+        // Random interval between 2-8 seconds
+    }, 2000 + Math.random() * 6000);
+
+    // Initial stars
+    for(let i = 0; i < 3; i++) {
+        setTimeout(createShootingStar, Math.random() * 3000);
+    }
+
 
     // CTA Hover
     document.querySelector('.cta-button').addEventListener('mousemove', (e) => {
