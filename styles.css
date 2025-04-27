@@ -583,3 +583,24 @@ button[type="submit"]:hover {
 .feature-card {
     padding: 1.5rem;
 }
+
+/* Video Player Styles */
+.project-hero-video {
+    margin: 2rem 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.project-hero-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 1rem;
+}
+
+/* Optional: Add a subtle animation on play */
+.project-hero-video video:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}
