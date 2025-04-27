@@ -1,156 +1,182 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // MENU OPEN/CLOSE ANIMATION
-    const menuButton = document.querySelector('.menu-button');
-    const menuOverlay = document.querySelector('.menu-overlay');
-  
-    menuButton.addEventListener('click', () => {
-      menuOverlay.classList.toggle('open');
-      menuButton.classList.toggle('open');
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
     });
   
-    // SMOOTH SCROLL
-    const scroll = new LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
     });
   
-    // HERO TEXT FADE IN
-    gsap.from('.hero-text', {
+    // GSAP Initialization
+    gsap.registerPlugin(ScrollTrigger);
+  
+    // Hero Animations
+    gsap.from(".hero-content", {
       opacity: 0,
       y: 50,
       duration: 1.5,
-      ease: 'power2.out',
-      delay: 0.5
+      ease: "power4.out"
     });
   
-    // PARTICLES BACKGROUND (small static stars)
-    tsParticles.load('tsparticles', {
-      fullScreen: {
-        enable: true,
-        zIndex: -1
-      },
-      particles: {
-        number: {
-          value: 100,
-          density: { enable: true, value_area: 800 }
-        },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: {
-          value: 0.8,
-          random: true
-        },
-        size: {
-          value: 2,
-          random: true
-        },
-        move: {
-          enable: true,
-          speed: 0.2,
-          direction: "none",
-          outModes: { default: "out" }
-        }
-      },
-      interactivity: {
-        events: {
-          onHover: { enable: false },
-          onClick: { enable: false }
-        }
-      },
-      detectRetina: true
+    // Nebula rotation tween
+    gsap.to(".nebula-layer", {
+      rotation: 360,
+      duration: 300,
+      repeat: -1,
+      ease: "none",
+      transformOrigin: "50% 50%"
     });
   
-    // ————— SHOOTING STARS SETUP —————
-    const STAR_RATE = 1.5; // stars per second
-    const STAR_SPEED_MIN = 1.5; // minimum animation duration
-    const STAR_SPEED_MAX = 3; // maximum animation duration
-    const ANGLE_RANGE = 45; // degrees (-22.5° to +22.5°)
+    // Gas-cloud drifting
+    gsap.to(".gas-cloud", {
+      x: "random(-300, 300)",
+      y: "random(-300, 300)",
+      scale: "random(0.8, 1.5)",
+      duration: "random(40, 80)",
+      repeat: -1,
+      repeatRefresh: true,
+      ease: "power1.inOut"
+    });
   
-    // Add shooting star styles dynamically
-    const style = document.createElement('style');
-    style.textContent = `
-      .shooting-star {
-        position: fixed;
-        width: 100px;
-        height: 2px;
-        background: linear-gradient(90deg, 
-            rgba(255,255,255,0) 0%, 
-            rgba(255,255,255,0.8) 50%, 
-            rgba(255,255,255,0) 100%);
-        pointer-events: none;
-        z-index: 9998;
-        filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
-      }
-      .shooting-star::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        width: 8px;
-        height: 8px;
-        background: white;
-        border-radius: 50%;
-        filter: blur(2px);
-      }
-    `;
-    document.head.appendChild(style);
+    // Headline fade-in
+    gsap.from(".animated-headline span", {
+      opacity: 0,
+      y: 50,
+      stagger: 0.2,
+      duration: 1.5,
+      ease: "power4.out"
+    });
   
-    function createShootingStar() {
-      const star = document.createElement('div');
-      star.className = 'shooting-star';
-      document.body.appendChild(star);
+    // Floating Orb
+    gsap.to(".floating-orb", {
+      x: "random(-100, 100, 5)",
+      y: "random(-50, 50, 5)",
+      scale: "random(0.9, 1.1)",
+      duration: 10,
+      repeat: -1,
+      repeatRefresh: true,
+      ease: "power1.inOut"
+    });
   
-      const startX = Math.random() * window.innerWidth * 1.5;
-      const startY = -10;
-  
-      const angle = -ANGLE_RANGE/2 + Math.random() * ANGLE_RANGE;
-      const radians = angle * Math.PI / 180;
-  
-      const deltaX = window.innerWidth * 2;
-      const deltaY = deltaX * Math.tan(radians);
-  
-      const duration = STAR_SPEED_MIN + Math.random() * (STAR_SPEED_MAX - STAR_SPEED_MIN);
-  
-      gsap.set(star, {
-        x: startX,
-        y: startY,
-        rotation: angle,
-        opacity: 0
-      });
-  
-      gsap.to(star, {
-        duration: duration,
-        x: `+=${deltaX}`,
-        y: `+=${deltaY}`,
-        opacity: 1,
-        ease: 'power1.in',
-        onComplete: () => star.remove()
-      });
-  
-      // Fade out toward the end
-      gsap.to(star, {
+    // Section reveal on scroll
+    gsap.utils.toArray('.section').forEach(section => {
+      gsap.from(section, {
         opacity: 0,
-        duration: 0.5,
-        delay: duration - 0.5,
-        ease: 'power1.out'
+        y: 50,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
       });
-    }
-  
-    function scheduleStar() {
-      createShootingStar();
-      setTimeout(scheduleStar, (1000 / STAR_RATE) * (0.5 + Math.random()));
-    }
-    scheduleStar();
-    // ————— END SHOOTING STARS SETUP —————
-  
-    // CTA BUTTON HOVER ANIMATION
-    const ctaButton = document.querySelector('.cta-button');
-    ctaButton.addEventListener('mouseenter', () => {
-      gsap.to(ctaButton, { scale: 1.1, duration: 0.3, ease: 'power2.out' });
     });
-    ctaButton.addEventListener('mouseleave', () => {
-      gsap.to(ctaButton, { scale: 1, duration: 0.3, ease: 'power2.out' });
+  
+    // Progress bar fills
+    gsap.utils.toArray('.progress-bar span').forEach(bar => {
+      gsap.from(bar, {
+        width: 0,
+        scrollTrigger: {
+          trigger: bar,
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+  
+    // Particle field
+    function createParticles() {
+      const container = document.querySelector('.particles-container');
+      for (let i = 0; i < 100; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+  
+        gsap.set(particle, {
+          x: Math.random() * 100 + 'vw',
+          y: Math.random() * 100 + 'vh',
+          opacity: () => Math.random() * 0.3 + 0.2,
+          scale: () => Math.random() * 0.5 + 0.3
+        });
+  
+        gsap.to(particle, {
+          x: '+=random(-200, 200)%',
+          y: '+=random(-200, 200)%',
+          duration: 'random(20, 40)',
+          ease: 'sine.inOut',
+          modifiers: {
+            x: x => parseFloat(x) % window.innerWidth,
+            y: y => parseFloat(y) % window.innerHeight
+          },
+          repeat: -1
+        });
+  
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+  
+    // Expose createShootingStar for console testing
+    window.createShootingStar = createShootingStar;
+  
+    // Kick off shooting-stars loop
+    setInterval(() => {
+      createShootingStar();
+    }, 2000 + Math.random() * 6000);
+  
+    // Initial few stars
+    for (let i = 0; i < 3; i++) {
+      setTimeout(createShootingStar, Math.random() * 3000);
+    }
+  
+    // CTA Hover effect
+    document.querySelector('.cta-button').addEventListener('mousemove', (e) => {
+      const rect = e.target.getBoundingClientRect();
+      e.target.style.setProperty('--x', `${e.clientX - rect.left}px`);
+      e.target.style.setProperty('--y', `${e.clientY - rect.top}px`);
     });
   });
+  
+  
+  // Shooting-star creation function
+  function createShootingStar() {
+    const star = document.createElement('div');
+    star.className = 'shooting-star';
+  
+    // Random start position / angle
+    const startX = Math.random() * window.innerWidth;
+    const startY = Math.random() * window.innerHeight * 0.4;
+    const angle = -15 + Math.random() * 30; // degrees
+  
+    // Append before animating
+    document.body.appendChild(star);
+  
+    // Set initial props
+    gsap.set(star, {
+      x: startX,
+      y: startY,
+      rotation: angle,
+      opacity: 0
+    });
+  
+    // Animate across and fade out
+    gsap.to(star, {
+      duration: 1.5 + Math.random() * 2,
+      x: `+=${window.innerWidth * 1.5}`,
+      y: `+=${window.innerWidth * Math.tan(angle * Math.PI / 180)}`,
+      opacity: 1,
+      ease: "power1.out",
+      onComplete: () => star.remove()
+    });
+  }
   
