@@ -1,4 +1,5 @@
 /* styles.css */
+
 /* Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
@@ -25,24 +26,78 @@ body {
     line-height: 1.6;
 }
 
+/* Base radial glows */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: 
-        radial-gradient(circle at 50% 50%, 
-            var(--primary-color) 0%, 
-            transparent 70%),
-        radial-gradient(circle at 10% 20%, 
-            var(--secondary-color) 0%, 
-            transparent 70%);
+        radial-gradient(circle at 50% 50%, var(--primary-color) 0%, transparent 70%),
+        radial-gradient(circle at 10% 20%, var(--secondary-color) 0%, transparent 70%);
     opacity: 0.1;
-    z-index: -1;
     filter: blur(100px);
+    z-index: -2;
     will-change: transform;
+}
+
+/* Nebula background */
+.nebula-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -3;
+    opacity: 0.6;
+}
+
+.nebula-layer {
+    position: absolute;
+    top: -25%; left: -25%;
+    width: 150%; height: 150%;
+    background:
+        radial-gradient(circle at 60% 40%, rgba(150, 0, 255, 0.5) 0%, transparent 60%),
+        radial-gradient(circle at 40% 60%, rgba(0, 150, 255, 0.5) 0%, transparent 60%);
+    filter: blur(100px);
+    animation: nebula-drift 120s linear infinite;
+}
+
+@keyframes nebula-drift {
+    0%   { transform: rotate(0deg) scale(1);   opacity: 0.3; }
+    50%  { transform: rotate(180deg) scale(1.2); opacity: 0.5; }
+    100% { transform: rotate(360deg) scale(1);   opacity: 0.3; }
+}
+
+/* Additional drifting gas clouds */
+.gas-cloud {
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,150,255,0.2) 0%, transparent 70%);
+    filter: blur(80px);
+    animation: cloud-float 60s infinite ease-in-out;
+}
+
+@keyframes cloud-float {
+    0%, 100%    { transform: translate(0, 0) scale(1); }
+    25%         { transform: translate(100px, 50px) scale(1.2); }
+    50%         { transform: translate(-80px, 100px) scale(0.8); }
+    75%         { transform: translate(-100px, -50px) scale(1.1); }
+}
+
+/* Subtle color-shift overlay */
+.color-shift {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(45deg, rgba(255,0,100,0.05), rgba(100,0,255,0.05), rgba(0,100,255,0.05));
+    filter: hue-rotate(0deg);
+    animation: color-transition 30s infinite;
+    opacity: 0.1;
+    z-index: -4;
+}
+
+@keyframes color-transition {
+    to { filter: hue-rotate(360deg); }
 }
 
 /* Navigation */
@@ -112,30 +167,143 @@ body::before {
     overflow: hidden;
 }
 
+.particles-container {
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
 .hero-content {
     text-align: center;
     position: relative;
     z-index: 1;
 }
 
+.animated-headline {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%     { transform: translateY(-20px); }
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--background) !important;
+    text-decoration: none !important;
+    border-radius: 50px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: none;
+    cursor: pointer;
+    transform: translateZ(0);
+    box-shadow: 0 10px 20px -5px rgba(0, 119, 255, 0.2);
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px -5px rgba(0, 119, 255, 0.4);
+}
+
+.cta-button:hover::before {
+    opacity: 1;
+}
+
+.cta-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 15px -5px rgba(0, 119, 255, 0.3);
+}
+
+.cta-button span {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-button i {
+    margin-left: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover i {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    .animated-headline {
+        font-size: 2.5rem;
+    }
+    .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Floating Orb */
 .floating-orb {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle at 50% 50%, 
-        var(--primary-color) 0%, 
-        var(--secondary-color) 70%, 
-        transparent 100%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle at 50% 50%, var(--primary-color) 0%, var(--secondary-color) 70%, transparent 100%);
     border-radius: 50%;
     filter: blur(80px);
     opacity: 0.2;
     z-index: -1;
-    animation: orb-pulse 8s ease-in-out infinite;
+    animation: orb-float 12s ease-in-out infinite;
 }
 
-@keyframes orb-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+@keyframes orb-float {
+    0%,100% { transform: translate(0,0) scale(1); opacity:0.2; }
+    25%     { transform: translate(100px,-50px) scale(1.1); }
+    50%     { transform: translate(-80px,80px) scale(0.9); }
+    75%     { transform: translate(-100px,-80px) scale(1.05); }
+}
+
+/* Glow */
+.glow {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 50%, var(--primary-color) 0%, transparent 60%);
+    filter: blur(100px);
+    opacity: 0.05;
+    z-index: -5;
 }
 
 /* Sections */
@@ -161,11 +329,9 @@ body::before {
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 50%;
+    bottom: -10px; left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
+    width: 60px; height: 3px;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
 
@@ -234,6 +400,11 @@ body::before {
     backdrop-filter: blur(10px);
 }
 
+.about-text {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
 .skill-bars {
     margin-top: 2rem;
 }
@@ -260,16 +431,6 @@ body::before {
 }
 
 /* Contact Section */
-.contact-info {
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
-}
-
-.social-links {
-    margin-top: 2rem;
-}
-
 .contact-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -284,6 +445,9 @@ body::before {
 
 .contact-form {
     padding: 2rem;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
 }
 
 .form-group {
@@ -311,8 +475,7 @@ body::before {
 
 .form-group label {
     position: absolute;
-    left: 1rem;
-    top: 1rem;
+    left: 1rem; top: 1rem;
     pointer-events: none;
     transition: all 0.3s ease;
     color: rgba(255, 255, 255, 0.6);
@@ -322,16 +485,54 @@ body::before {
 .form-group input:not(:placeholder-shown) ~ label,
 .form-group textarea:focus ~ label,
 .form-group textarea:not(:placeholder-shown) ~ label {
-    top: -0.8rem;
-    left: 0.5rem;
+    top: -0.8rem; left: 0.5rem;
     font-size: 0.8rem;
     color: var(--primary-color);
+}
+
+button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--background);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+}
+
+/* Social Links */
+.contact-info {
+    text-align: center;
+}
+
+.connect-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.connect-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 3px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
 
 .social-links {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-top: 2rem;
 }
 
 .social-links a {
@@ -359,8 +560,7 @@ body::before {
 
     .nav-links {
         position: fixed;
-        top: 70px;
-        right: -100%;
+        top: 70px; right: -100%;
         flex-direction: column;
         background: var(--glass);
         backdrop-filter: blur(10px);
@@ -385,403 +585,4 @@ body::before {
     .menu-toggle.active .bar:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
     }
-}
-
-/* Add to existing CSS */
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.particles-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    animation: particle-flow 15s linear infinite;
-    opacity: 0.3;
-}
-
-/* Remove this CSS animation */
-/* @keyframes particle-flow {
-    0% {
-        transform: translateY(-10vh) translateX(-10vw);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(110vh) translateX(110vw);
-        opacity: 0.3;
-    }
-} */
-
-/* Update particle styling */
-.particle {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    opacity: 0.5;
-    /* Remove CSS animation */
-}
-
-.floating-orb {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle at 50% 50%, 
-        var(--primary-color) 0%, 
-        var(--secondary-color) 70%, 
-        transparent 100%);
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.2;
-    z-index: -1;
-    animation: orb-float 12s ease-in-out infinite;
-}
-
-.glow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        var(--primary-color) 0%, 
-        transparent 60%);
-    filter: blur(100px);
-    opacity: 0.05;
-    z-index: -2;
-}
-
-@keyframes orb-float {
-    0%, 100% { 
-        transform: translate(0, 0) scale(1);
-        opacity: 0.2;
-    }
-    25% {
-        transform: translate(100px, -50px) scale(1.1);
-    }
-    50% {
-        transform: translate(-80px, 80px) scale(0.9);
-    }
-    75% {
-        transform: translate(-100px, -80px) scale(1.05);
-    }
-}
-
-/* Add to your CSS */
-.animated-headline {
-    font-size: 4rem;
-    line-height: 1.1;
-    margin-bottom: 2rem;
-}
-
-.gradient-text {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-}
-
-.animate-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-.animate-glitch {
-    position: relative;
-    animation: glitch 2.5s infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
-@keyframes glitch {
-    0% {
-        transform: translate(0);
-        text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
-                    -0.05em -0.025em 0 rgba(0,255,0,.75),
-                    -0.025em 0.05em 0 rgba(0,0,255,.75);
-    }
-    14% {
-        transform: translate(-0.025em, 0.025em);
-        text-shadow: none;
-    }
-    15% {
-        transform: translate(0.025em, -0.025em);
-        text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
-                    -0.05em -0.025em 0 rgba(0,255,0,.75),
-                    -0.025em 0.05em 0 rgba(0,0,255,.75);
-    }
-    49% {
-        transform: translate(-0.025em, 0.025em);
-    }
-    50% {
-        transform: translate(0);
-        text-shadow: none;
-    }
-    99% {
-        transform: translate(0.025em, -0.025em);
-    }
-    100% {
-        transform: translate(0);
-    }
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .animated-headline {
-        font-size: 2.5rem;
-    }
-}
-
-/* Add/Update these styles in your CSS */
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    color: var(--background) !important;
-    text-decoration: none !important;
-    border-radius: 50px;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    border: none;
-    cursor: pointer;
-    transform: translateZ(0);
-    box-shadow: 0 10px 20px -5px rgba(0, 119, 255, 0.2);
-}
-
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px -5px rgba(0, 119, 255, 0.4);
-}
-
-.cta-button:hover::before {
-    opacity: 1;
-}
-
-.cta-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 5px 15px -5px rgba(0, 119, 255, 0.3);
-}
-
-.cta-button span {
-    position: relative;
-    z-index: 2;
-}
-
-/* Add arrow icon animation */
-.cta-button i {
-    margin-left: 0.8rem;
-    transition: transform 0.3s ease;
-}
-
-.cta-button:hover i {
-    transform: translateX(3px);
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-    .cta-button {
-        padding: 0.8rem 2rem;
-        font-size: 0.9rem;
-    }
-}
-
-/* Add this to your CSS */
-.connect-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    position: relative;
-    display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.connect-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .connect-title {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-}
-
-/* Add to your CSS */
-.nebula-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Changed from -2 */
-    opacity: 0.6; /* Increased from 0.3 */
-    pointer-events: none;
-}
-
-.nebula-layer {
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    top: -25%;
-    left: -25%;
-    background: 
-        radial-gradient(circle at 60% 40%, 
-            rgba(100, 0, 255, 0.1) 0%, 
-            transparent 50%),
-        radial-gradient(circle at 40% 60%, 
-            rgba(0, 100, 255, 0.1) 0%, 
-            transparent 50%);
-    animation: nebula-drift 120s linear infinite;
-    filter: blur(80px);
-}
-
-@keyframes nebula-drift {
-    0% { 
-        transform: rotate(0deg) scale(1);
-        opacity: 0.3;
-    }
-    50% {
-        transform: rotate(180deg) scale(1.2);
-        opacity: 0.5;
-    }
-    100% {
-        transform: rotate(360deg) scale(1);
-        opacity: 0.3;
-    }
-}
-
-.gas-cloud {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, 
-        rgba(255,100,255,0.1) 0%, 
-        transparent 60%);
-    filter: blur(50px);
-    animation: cloud-float 40s infinite ease-in-out;
-}
-
-@keyframes cloud-float {
-    0%, 100% {
-        transform: translate(0, 0) scale(1);
-    }
-    25% {
-        transform: translate(100px, 50px) scale(1.2);
-    }
-    50% {
-        transform: translate(-80px, 100px) scale(0.8);
-    }
-    75% {
-        transform: translate(-100px, -50px) scale(1.1);
-    }
-}
-
-.color-shift {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-        rgba(255,0,100,0.05), 
-        rgba(100,0,255,0.05), 
-        rgba(0,100,255,0.05));
-    animation: color-transition 30s infinite;
-    opacity: 0.1;
-    z-index: -3;
-}
-
-/* Add these corrections to your existing CSS */
-.nebula-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Changed from -2 */
-    opacity: 0.6; /* Increased from 0.3 */
-    pointer-events: none;
-}
-
-.nebula-layer {
-    background: 
-        radial-gradient(circle at 60% 40%, 
-            rgba(150, 0, 255, 0.25) 0%,  /* More intense color */
-            transparent 60%),
-        radial-gradient(circle at 40% 60%, 
-            rgba(0, 150, 255, 0.25) 0%,  /* More intense color */
-            transparent 60%);
-    filter: blur(100px); /* Increased blur */
-}
-
-.gas-cloud {
-    background: radial-gradient(circle, 
-        rgba(255, 150, 255, 0.2) 0%,  /* Brighter color */
-        transparent 70%);
-    filter: blur(80px); /* Softer blur */
-    animation: cloud-float 60s infinite ease-in-out; /* Slower animation */
-}
-
-/* Update z-index hierarchy */
-body::before {
-    z-index: -2; /* Changed from -1 */
-}
-
-.particles-container {
-    z-index: 0; /* Particles above nebula */
-}
-
-.floating-orb {
-    z-index: -1; /* Behind particles but above nebula */
-}
-
-.glow {
-    z-index: -3;
-}
-
-.color-shift {
-    z-index: -4;
-}
-
-/* Added new code */
-
-
-@keyframes color-transition {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
 }
