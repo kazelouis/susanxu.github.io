@@ -54,6 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Add this to your existing GSAP animations
+    gsap.from(".animated-headline span", {
+        opacity: 0,
+        y: 50,
+        stagger: 0.2,
+        duration: 1.5,
+        ease: "power4.out"
+    });
+
     // Progress Bar Animations
     gsap.utils.toArray('.progress-bar span').forEach(bar => {
         gsap.from(bar, {
