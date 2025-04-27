@@ -73,29 +73,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Particles
+
     function createParticles() {
         const container = document.querySelector('.particles-container');
-        for(let i = 0; i < 50; i++) {
+        for(let i = 0; i < 100; i++) {
             const particle = document.createElement('div');
-            particle.className = 'particle';            
+            particle.className = 'particle';
+            
             gsap.set(particle, {
                 x: Math.random() * 100 + 'vw',
                 y: Math.random() * 100 + 'vh',
-                opacity: 0.3,
-                scale: Math.random() * 0.5 + 0.5
+                opacity: () => Math.random() * 0.3 + 0.2,
+                scale: () => Math.random() * 0.5 + 0.3
             });
             
+            // Create organic movement with sine waves
             gsap.to(particle, {
-                x: '+=200vw',
-                y: '+=200vh',
-                duration: 15 + Math.random() * 10,
-                repeat: -1,
-                ease: 'none'
+                x: '+=random(-200, 200)%',
+                y: '+=random(-200, 200)%',
+                duration: 'random(20, 40)',
+                ease: 'sine.inOut',
+                modifiers: {
+                    x: x => parseFloat(x) % window.innerWidth,
+                    y: y => parseFloat(y) % window.innerHeight
+                },
+                repeat: -1
             });
             
             container.appendChild(particle);
         }
     }
+
     createParticles();
 
     // CTA Hover
