@@ -1,6 +1,46 @@
-// Add these to existing script.js
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Animate sections on scroll
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero Elements
+    gsap.from('.hero-content', {
+        opacity: 0,
+        y: 50,
+        duration: 1.5,
+        ease: 'power4.out'
+    });
+
+    // Floating Orb Animation
+    gsap.to('.floating-orb', {
+        x: "random(-100, 100, 5)",
+        y: "random(-50, 50, 5)",
+        duration: 8,
+        repeat: -1,
+        repeatRefresh: true,
+        ease: "power1.inOut"
+    });
+
+    // Section Animations
     gsap.utils.toArray('.section').forEach(section => {
         gsap.from(section, {
             opacity: 0,
@@ -13,25 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Project card hover effect
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--x', `${x}px`);
-            card.style.setProperty('--y', `${y}px`);
-        });
-    });
-
-    // Form validation
-    document.querySelector('form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Add your form submission logic here
-        alert('Message sent successfully!');
-    });
-
-    // Animate progress bars
+    // Progress Bar Animations
     gsap.utils.toArray('.progress-bar span').forEach(bar => {
         gsap.from(bar, {
             width: 0,
@@ -41,5 +63,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 toggleActions: 'play none none none'
             }
         });
+    });
+
+    // Particle Animation
+    function createParticles() {
+        const container = document.querySelector('.particles-container');
+        for(let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            gsap.set(particle, {
+                x: Math.random() * 100 + 'vw',
+                y: Math.random() * 100 + 'vh',
+                opacity: Math.random() * 0.5
+            });
+            gsap.to(particle, {
+                x: '+=200vw',
+                y: '+=200vh',
+                duration: 15 + Math.random() * 10,
+                repeat: -1,
+                ease: 'none'
+            });
+            container.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // CTA Button Hover Effect
+    document.querySelector('.cta-button').addEventListener('mousemove', (e) => {
+        const rect = e.target.getBoundingClientRect();
+        e.target.style.setProperty('--x', `${e.clientX - rect.left}px`);
+        e.target.style.setProperty('--y', `${e.clientY - rect.top}px`);
     });
 });
