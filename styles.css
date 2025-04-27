@@ -586,3 +586,64 @@ button[type="submit"]:hover {
         transform: rotate(-45deg) translate(7px, -6px);
     }
 }
+
+/* Add these corrections to your existing CSS */
+.nebula-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Crucial z-index fix */
+    opacity: 0.8; /* Increased visibility */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.nebula-layer {
+    position: absolute;
+    width: 200%; /* Larger size */
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: 
+        radial-gradient(circle at 60% 40%, 
+            rgba(150, 0, 255, 0.4) 0%,  /* More intense color */
+            transparent 60%),
+        radial-gradient(circle at 40% 60%, 
+            rgba(0, 150, 255, 0.4) 0%,  /* More intense color */
+            transparent 60%);
+    filter: blur(120px); /* Increased blur */
+    animation: nebula-drift 120s linear infinite;
+}
+
+.gas-cloud {
+    position: absolute;
+    width: 500px; /* Larger size */
+    height: 500px;
+    background: radial-gradient(circle, 
+        rgba(255, 180, 255, 0.3) 0%,  /* Brighter color */
+        transparent 70%);
+    filter: blur(100px); /* Softer blur */
+}
+
+/* Key z-index fixes */
+body::before {
+    z-index: -2;
+}
+
+.particles-container {
+    z-index: 0;
+}
+
+.floating-orb {
+    z-index: -1;
+}
+
+.glow {
+    z-index: -3;
+}
+
+.color-shift {
+    z-index: -4;
+}

@@ -29,18 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add nebula animations
-    gsap.from(".nebula-layer", {
-        rotation: -360,
+    // Revised nebula animations
+    gsap.to(".nebula-layer", {
+        rotation: 360,
         duration: 300,
         repeat: -1,
-        ease: "none"
+        ease: "none",
+        transformOrigin: "center center"
     });
 
     gsap.to(".gas-cloud", {
-        x: "random(-200, 200)",
-        y: "random(-200, 200)",
-        rotation: "random(-180, 180)",
-        duration: "random(60, 120)",
+        x: "random(-300, 300)",
+        y: "random(-300, 300)",
+        scale: "random(0.8, 1.5)",
+        duration: "random(40, 80)",
         repeat: -1,
         repeatRefresh: true,
         ease: "power1.inOut"
