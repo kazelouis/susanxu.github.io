@@ -498,6 +498,11 @@ button[type="submit"]:hover {
     pointer-events: none;
 }
 
+.shooting-star {
+    background: red !important; /* Force visible color */
+    z-index: 9999 !important; /* Force top layer */
+}
+
 .shooting-star::before {
     content: '';
     position: absolute;
