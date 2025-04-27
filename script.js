@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       delay: 0.5
     });
   
-    // PARTICLES BACKGROUND (stars)
+    // PARTICLES BACKGROUND (small static stars)
     tsParticles.load('tsparticles', {
       fullScreen: {
         enable: true,
@@ -63,38 +63,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
     // ————— SHOOTING STARS SETUP —————
+    const STAR_RATE = 1.5; // stars per second
+    const STAR_SPEED_MIN = 1.5; // minimum animation duration
+    const STAR_SPEED_MAX = 3; // maximum animation duration
+    const ANGLE_RANGE = 45; // degrees (-22.5° to +22.5°)
   
-    const STAR_RATE   = 20;            // stars per second
-    const STAR_SPEED  = 1.5;            // how long (s) each star takes to cross
-    const SHOOT_ANGLE = -20;            // degrees (negative = up→right)
-  
-    const radians = SHOOT_ANGLE * Math.PI / 180;
-    const deltaX  = window.innerWidth * 1.5;
-    const deltaY  = deltaX * Math.tan(radians);
+    // Add shooting star styles dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      .shooting-star {
+        position: fixed;
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            rgba(255,255,255,0) 0%, 
+            rgba(255,255,255,0.8) 50%, 
+            rgba(255,255,255,0) 100%);
+        pointer-events: none;
+        z-index: 9998;
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+      }
+      .shooting-star::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        filter: blur(2px);
+      }
+    `;
+    document.head.appendChild(style);
   
     function createShootingStar() {
       const star = document.createElement('div');
       star.className = 'shooting-star';
       document.body.appendChild(star);
   
-      const startX = Math.random() * window.innerWidth;
+      const startX = Math.random() * window.innerWidth * 1.5;
       const startY = -10;
   
-      gsap.set(star, { x: startX, y: startY, rotation: SHOOT_ANGLE, opacity: 0 });
+      const angle = -ANGLE_RANGE/2 + Math.random() * ANGLE_RANGE;
+      const radians = angle * Math.PI / 180;
+  
+      const deltaX = window.innerWidth * 2;
+      const deltaY = deltaX * Math.tan(radians);
+  
+      const duration = STAR_SPEED_MIN + Math.random() * (STAR_SPEED_MAX - STAR_SPEED_MIN);
+  
+      gsap.set(star, {
+        x: startX,
+        y: startY,
+        rotation: angle,
+        opacity: 0
+      });
   
       gsap.to(star, {
-        duration: STAR_SPEED,
+        duration: duration,
         x: `+=${deltaX}`,
         y: `+=${deltaY}`,
         opacity: 1,
-        ease: 'none',
+        ease: 'power1.in',
         onComplete: () => star.remove()
+      });
+  
+      // Fade out toward the end
+      gsap.to(star, {
+        opacity: 0,
+        duration: 0.5,
+        delay: duration - 0.5,
+        ease: 'power1.out'
       });
     }
   
-    const interval = 1000 / STAR_RATE;
-    setInterval(createShootingStar, interval);
-  
+    function scheduleStar() {
+      createShootingStar();
+      setTimeout(scheduleStar, (1000 / STAR_RATE) * (0.5 + Math.random()));
+    }
+    scheduleStar();
     // ————— END SHOOTING STARS SETUP —————
   
     // CTA BUTTON HOVER ANIMATION
