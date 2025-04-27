@@ -148,35 +148,54 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   
-  // Shooting-star creation function
-  function createShootingStar() {
+  // Shooting-star creation function - Modified Version
+function createShootingStar() {
     const star = document.createElement('div');
     star.className = 'shooting-star';
-  
-    // Random start position / angle
-    const startX = Math.random() * window.innerWidth;
-    const startY = Math.random() * window.innerHeight * 0.4;
-    const angle = -15 + Math.random() * 30; // degrees
-  
-    // Append before animating
+
+    // Set initial position at top-left (just off-screen)
+    const startX = -100;
+    const startY = Math.random() * window.innerHeight * 0.2;
+    const angle = 45; // Fixed 45-degree angle for diagonal movement
+
+    // Create star element with initial styles
+    Object.assign(star.style, {
+        width: '150px',
+        height: '3px',
+        background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)',
+        opacity: '1', // No fade-in
+        zIndex: '9998',
+        filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.8))'
+    });
+
     document.body.appendChild(star);
-  
-    // Set initial props
+
+    // Set initial position and rotation
     gsap.set(star, {
-      x: startX,
-      y: startY,
-      rotation: angle,
-      opacity: 0
+        x: startX,
+        y: startY,
+        rotation: angle,
+        opacity: 1 // Start fully visible
     });
-  
-    // Animate across and fade out
+
+    // Animate across screen
     gsap.to(star, {
-      duration: 1.5 + Math.random() * 2,
-      x: `+=${window.innerWidth * 1.5}`,
-      y: `+=${window.innerWidth * Math.tan(angle * Math.PI / 180)}`,
-      opacity: 1,
-      ease: "power1.out",
-      onComplete: () => star.remove()
+        duration: 1.2, // Fixed speed
+        x: window.innerWidth + 500,
+        y: startY + window.innerHeight,
+        ease: "linear",
+        onComplete: () => star.remove()
     });
-  }
+}
+
+// Replace the interval code with this:
+const starsPerSecond = 20;
+let starInterval = setInterval(() => {
+    // Create burst of stars
+    for(let i = 0; i < starsPerSecond; i++) {
+        createShootingStar();
+    }
+}, 1000); // Create 20 stars every second
+
+// Remove the initial stars timeout
   

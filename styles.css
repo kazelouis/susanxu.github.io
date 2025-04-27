@@ -518,4 +518,10 @@ button[type="submit"]:hover {
     filter: blur(2px);
     box-shadow: 0 0 10px 2px rgba(255,255,255,0.4);
   }
+
+  .shooting-star {
+    position: fixed;
+    pointer-events: none;
+    transform-origin: left center;
+}
   
