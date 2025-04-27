@@ -282,9 +282,16 @@ body::before {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
     gap: 2rem;
 }
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+}
+
 .glass-card {
     background: var(--glass);
     backdrop-filter: blur(10px);
