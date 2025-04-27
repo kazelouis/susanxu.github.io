@@ -28,6 +28,24 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: "power4.out"
     });
 
+    // Add nebula animations
+    gsap.from(".nebula-layer", {
+        rotation: -360,
+        duration: 300,
+        repeat: -1,
+        ease: "none"
+    });
+
+    gsap.to(".gas-cloud", {
+        x: "random(-200, 200)",
+        y: "random(-200, 200)",
+        rotation: "random(-180, 180)",
+        duration: "random(60, 120)",
+        repeat: -1,
+        repeatRefresh: true,
+        ease: "power1.inOut"
+    });
+
     gsap.from(".animated-headline span", {
         opacity: 0,
         y: 50,

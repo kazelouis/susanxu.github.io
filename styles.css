@@ -650,8 +650,9 @@ body::before {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: -2;
-    opacity: 0.3;
+    z-index: -1; /* Changed from -2 */
+    opacity: 0.6; /* Increased from 0.3 */
+    pointer-events: none;
 }
 
 .nebula-layer {
@@ -724,6 +725,61 @@ body::before {
     opacity: 0.1;
     z-index: -3;
 }
+
+/* Add these corrections to your existing CSS */
+.nebula-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Changed from -2 */
+    opacity: 0.6; /* Increased from 0.3 */
+    pointer-events: none;
+}
+
+.nebula-layer {
+    background: 
+        radial-gradient(circle at 60% 40%, 
+            rgba(150, 0, 255, 0.25) 0%,  /* More intense color */
+            transparent 60%),
+        radial-gradient(circle at 40% 60%, 
+            rgba(0, 150, 255, 0.25) 0%,  /* More intense color */
+            transparent 60%);
+    filter: blur(100px); /* Increased blur */
+}
+
+.gas-cloud {
+    background: radial-gradient(circle, 
+        rgba(255, 150, 255, 0.2) 0%,  /* Brighter color */
+        transparent 70%);
+    filter: blur(80px); /* Softer blur */
+    animation: cloud-float 60s infinite ease-in-out; /* Slower animation */
+}
+
+/* Update z-index hierarchy */
+body::before {
+    z-index: -2; /* Changed from -1 */
+}
+
+.particles-container {
+    z-index: 0; /* Particles above nebula */
+}
+
+.floating-orb {
+    z-index: -1; /* Behind particles but above nebula */
+}
+
+.glow {
+    z-index: -3;
+}
+
+.color-shift {
+    z-index: -4;
+}
+
+/* Added new code */
+
 
 @keyframes color-transition {
     0% { filter: hue-rotate(0deg); }
