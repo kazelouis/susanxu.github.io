@@ -126,55 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createParticles();
 
-    // Shooting stars generator
-    function createShootingStar() {
-        const star = document.createElement('div');
-        star.classList.add('shooting-star');
-        document.body.appendChild(star);
-    
-        // Random start position along top edge
-        const startX = Math.random() * window.innerWidth;
-        // Random length variation
-        const length = 80 + Math.random() * 40;
-        star.style.height = length + 'px';
-    
-        // Random angle between 10° and 30°
-        const angle = 10 + Math.random() * 20;
-        const radians = angle * (Math.PI / 180);
-    
-        // Calculate end positions so it shoots down/right
-        const distance = window.innerWidth * 1.2;
-        const deltaX = Math.cos(radians) * distance;
-        const deltaY = Math.sin(radians) * distance;
-    
-        // Position at start
-        gsap.set(star, {
-        x: startX,
-        y: -length,
-        rotation: angle
-        });
-    
-        // Animate across and fade out
-        gsap.to(star, {
-        x: `+=${deltaX}`,
-        y: `+=${deltaY}`,
-        opacity: 0,
-        duration: 1 + Math.random() * 0.5,
-        ease: 'power1.out',
-        onComplete: () => star.remove()
-        });
-    }
-    
-    // Launch a shooting star every 1–3 seconds
-    function shootingStarLoop() {
-        createShootingStar();
-        // schedule next
-        setTimeout(shootingStarLoop, 1000 + Math.random() * 2000);
-    }
-    
-    // kick it off
-    shootingStarLoop();
-  
 
     // CTA Hover
     document.querySelector('.cta-button').addEventListener('mousemove', (e) => {
