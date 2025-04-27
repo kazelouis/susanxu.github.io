@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile App Project | Susan's Portfolio</title>
+    <title>Temp Stylist Case Study | Susan's Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
 </head>
 <body>
     <div class="project-page-container">
@@ -16,7 +19,7 @@
 
         <!-- Project Header -->
         <header class="project-header glass-card">
-            <h1 class="project-title">Mobile App Development</h1>
+            <h1 class="project-title">Temp Stylist - Weather-Based Fashion</h1>
             <div class="project-meta">
                 <div class="meta-item">
                     <span class="meta-label">Role:</span>
@@ -24,39 +27,39 @@
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Duration:</span>
-                    <span class="meta-value">2 Months</span>
+                    <span class="meta-value">3 Months</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Tools:</span>
+                    <span class="meta-value">Figma, React.js, Node.js, Weather API</span>
                 </div>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="project-content">
-            <!-- Hero Image -->
+            <!-- Hero Carousel -->
             <div class="project-media-carousel">
-                <!-- Carousel Items -->
                 <div class="carousel-container">
                     <div class="carousel-item active">
                         <img src="images/temp-stylist.png" alt="Temp Stylist Interface">
                     </div>
                     <div class="carousel-item">
-                        <img src="images/lo-fi-for-game-vault.png" alt="Wireframe Design">
+                        <img src="images/temp-wireframes.png" alt="Wireframe Designs">
                     </div>
                     <div class="carousel-item">
-                        <img src="images/game-vault-mockup.png" alt="Device Mockup">
+                        <img src="images/temp-weather-integration.png" alt="Weather Integration">
                     </div>
                     <div class="carousel-item">
                         <video controls autoplay muted loop>
-                            <source src="images/Game-Vault-Demo.mp4" type="video/mp4">
+                            <source src="videos/temp-stylist-demo.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                 </div>
-            
-                <!-- Navigation Controls -->
+                <!-- Carousel Controls -->
                 <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
                 <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
-                
-                <!-- Indicators -->
                 <div class="carousel-indicators">
                     <span class="indicator active"></span>
                     <span class="indicator"></span>
@@ -67,39 +70,97 @@
 
             <!-- Project Overview -->
             <section class="project-overview">
-                <h2>Project Overview</h2>
-                <p>Designed and developed a mobile-first application with focus on intuitive user interactions and smooth animations.</p>
-                
+                <h2>Smart Outfit Recommendations</h2>
+                <div class="glass-card content-card">
+                    <p>Temp Stylist combines real-time weather data with fashion intelligence to solve wardrobe dilemmas:</p>
+                    <ul class="case-study-list">
+                        <li>83% of users struggle with weather-appropriate outfits</li>
+                        <li>68% want help coordinating existing wardrobe items</li>
+                        <li>91% prefer personalized shopping suggestions</li>
+                    </ul>
+                </div>
+
                 <div class="tech-stack">
-                    <h3>Technologies Used</h3>
+                    <h3>Technical Stack</h3>
                     <div class="tech-badges">
+                        <span class="tech-badge">React.js</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">OpenWeather API</span>
                         <span class="tech-badge">Figma</span>
-                        <span class="tech-badge">Material Design</span>
-                        <span class="tech-badge">Canva</span>
                     </div>
                 </div>
             </section>
 
             <!-- Key Features -->
             <section class="key-features">
-                <h2>Key Features</h2>
+                <h2>Core Features</h2>
                 <div class="feature-grid">
                     <div class="feature-card glass-card">
-                        <h3>Interactive Prototypes</h3>
-                        <p>Created high-fidelity prototypes with complex user flows</p>
+                        <h3>Weather Integration</h3>
+                        <p>Real-time temperature analysis with 3-day forecast support</p>
+                        <img src="images/weather-integration.png" alt="Weather UI" class="feature-image">
                     </div>
+                    
                     <div class="feature-card glass-card">
-                        <h3>User Testing</h3>
-                        <p>Conducted user tests to refine interaction patterns</p>
+                        <h3>Outfit Builder</h3>
+                        <p>Drag-and-drop interface for creating weather-appropriate looks</p>
+                        <img src="images/outfit-builder.png" alt="Outfit Builder" class="feature-image">
                     </div>
+
                     <div class="feature-card glass-card">
-                        <h3>Design System</h3>
-                        <p>Developed comprehensive design system with 20+ components</p>
+                        <h3>Virtual Wardrobe</h3>
+                        <p>AI-powered closet organization with mix-and-match suggestions</p>
+                        <img src="images/virtual-wardrobe.png" alt="Wardrobe Interface" class="feature-image">
+                    </div>
+
+                    <div class="feature-card glass-card">
+                        <h3>Smart Shopping Cart</h3>
+                        <p>Context-aware recommendations for missing wardrobe items</p>
+                        <img src="images/shopping-cart.png" alt="Shopping Cart" class="feature-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design Process -->
+            <section class="design-process">
+                <h2>Development Journey</h2>
+                <div class="process-steps">
+                    <div class="process-step glass-card">
+                        <h3>1. Weather Data Analysis</h3>
+                        <p>Integrated OpenWeather API with temperature-based clothing rules</p>
+                    </div>
+                    <div class="process-step glass-card">
+                        <h3>2. Responsive Prototyping</h3>
+                        <p>Created adaptive layouts for desktop, tablet, and mobile</p>
+                    </div>
+                    <div class="process-step glass-card">
+                        <h3>3. E-commerce Integration</h3>
+                        <p>Developed secure cart system with Stripe payment processing</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Outcome -->
+            <section class="project-outcome">
+                <h2>Impact & Results</h2>
+                <div class="outcome-stats glass-card">
+                    <div class="stat-item">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Reduced Decision Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.7★</div>
+                        <div class="stat-label">User Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">1.2k</div>
+                        <div class="stat-label">Weekly Active Users</div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             let currentSlide = 0;
@@ -142,6 +203,6 @@
                 if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
             });
         });
-        </script>
+    </script>
 </body>
 </html>
