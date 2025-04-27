@@ -359,7 +359,7 @@ body::before {
 
 .project-image {
     height: 250px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     transition: transform 0.3s ease;
 }
@@ -730,7 +730,7 @@ button[type="submit"]:hover {
 .carousel-item video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     background: transparent;
 }
 
