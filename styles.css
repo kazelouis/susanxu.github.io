@@ -696,3 +696,54 @@ button[type="submit"]:hover {
     background: var(--primary-color);
     transform: scale(1.2);
 }
+
+/* For statistics list */
+.case-study-list {
+    padding: 1.5rem 2rem;
+    margin: 1rem 0;
+}
+
+.case-study-list li {
+    padding: 0.8rem 1.2rem;
+    margin: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+/* For process steps */
+.process-step {
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+/* For outcome stats */
+.outcome-stats {
+    padding: 2rem;
+}
+
+.stat-item {
+    padding: 1.2rem 1.5rem;
+    margin: 1rem;
+    text-align: center;
+}
+
+/* General content cards */
+.content-card {
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+}
+
+/* Feature cards */
+.feature-card {
+    padding: 1.2rem;
+}
+
+.feature-card p {
+    padding: 0.8rem 0;
+}
+
+/* Adjust existing glass-card padding */
+.glass-card {
+    padding: 1.5rem 2rem;
+    margin: 1rem 0;
+}
