@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ⭐ Constant stream of shooting stars ⭐
     const starsPerSecond = 20;
-    const intervalMs = 1000 / starsPerSecond; // 1000ms / 20 = 50ms per star
+    const intervalMs = 2000 / starsPerSecond; // 1000ms / 20 = 50ms per star
 
     setInterval(() => {
         createShootingStar();
