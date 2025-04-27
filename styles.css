@@ -376,3 +376,80 @@ body::before {
         transform: rotate(-45deg) translate(7px, -6px);
     }
 }
+
+/* Add to existing CSS */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    animation: particle-flow 15s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes particle-flow {
+    0% {
+        transform: translateY(-10vh) translateX(-10vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(110vh) translateX(110vw);
+        opacity: 0.3;
+    }
+}
+
+.floating-orb {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle at 50% 50%, 
+        var(--primary-color) 0%, 
+        var(--secondary-color) 70%, 
+        transparent 100%);
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    z-index: -1;
+    animation: orb-float 12s ease-in-out infinite;
+}
+
+.glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+        var(--primary-color) 0%, 
+        transparent 60%);
+    filter: blur(100px);
+    opacity: 0.05;
+    z-index: -2;
+}
+
+@keyframes orb-float {
+    0%, 100% { 
+        transform: translate(0, 0) scale(1);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translate(100px, -50px) scale(1.1);
+    }
+    50% {
+        transform: translate(-80px, 80px) scale(0.9);
+    }
+    75% {
+        transform: translate(-100px, -80px) scale(1.05);
+    }
+}

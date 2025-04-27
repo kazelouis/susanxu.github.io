@@ -95,3 +95,43 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.style.setProperty('--y', `${e.clientY - rect.top}px`);
     });
 });
+
+// Add these to your existing script.js
+document.addEventListener('DOMContentLoaded', () => {
+    // Create particles
+    function createParticles() {
+        const container = document.querySelector('.particles-container');
+        for(let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            gsap.set(particle, {
+                x: Math.random() * 100 + 'vw',
+                y: Math.random() * 100 + 'vh',
+                opacity: 0
+            });
+            
+            gsap.to(particle, {
+                x: '+=200vw',
+                y: '+=200vh',
+                opacity: 0.3,
+                duration: 15 + Math.random() * 10,
+                repeat: -1,
+                ease: 'none'
+            });
+            
+            container.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // Orb animation
+    gsap.to(".floating-orb", {
+        x: "random(-100, 100, 5)",
+        y: "random(-50, 50, 5)",
+        scale: "random(0.9, 1.1)",
+        duration: 10,
+        repeat: -1,
+        repeatRefresh: true,
+        ease: "power1.inOut"
+    });
+});
