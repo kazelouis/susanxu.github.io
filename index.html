@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <div class="logo">PORTFOLIO</div>
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animated-headline">
+                <span class="gradient-text">Creating Digital</span><br>
+                <span class="gradient-text">Experiences</span>
+            </h1>
+            <p class="hero-subtitle">Design & Development</p>
+            <a href="#work" class="cta-button">View Work</a>
+        </div>
+        <div class="floating-orb"></div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="work-section">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- Repeat this block for each project -->
+            <div class="project-card glass-card">
+                <div class="project-image"></div>
+                <h3>Project Title</h3>
+                <p>Project description lorem ipsum dolor sit amet.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
