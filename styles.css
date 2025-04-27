@@ -125,3 +125,76 @@ body {
         height: 250px;
     }
 }
+
+/* Add these new styles */
+.particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: particle-flow 15s linear infinite;
+}
+
+@keyframes particle-flow {
+    0% {
+        transform: translateY(-10vh) translateX(-10vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(110vh) translateX(110vw);
+        opacity: 0.8;
+    }
+}
+
+/* Add Matrix-like text animation */
+.matrix-text {
+    position: absolute;
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    opacity: 0.1;
+    animation: matrix-fall 20s linear infinite;
+}
+
+@keyframes matrix-fall {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+/* Enhance floating orb animation */
+.floating-orb {
+    animation: orb-pulse 8s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Add glitch effect to headline */
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
+                    -0.05em -0.025em 0 rgba(0,255,0,.75),
+                    -0.025em 0.05em 0 rgba(0,0,255,.75);
+    }
+    14% { text-shadow: none; }
+    15% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,.75),
+                    -0.05em -0.025em 0 rgba(0,255,0,.75),
+                    -0.025em 0.05em 0 rgba(0,0,255,.75);
+    }
+    100% { text-shadow: none; }
+}
+
+.animated-headline {
+    animation: glitch 3s infinite;
+}
