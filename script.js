@@ -1,182 +1,109 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      menuToggle.classList.toggle('active');
+    // MENU OPEN/CLOSE ANIMATION
+    const menuButton = document.querySelector('.menu-button');
+    const menuOverlay = document.querySelector('.menu-overlay');
+  
+    menuButton.addEventListener('click', () => {
+      menuOverlay.classList.toggle('open');
+      menuButton.classList.toggle('open');
     });
   
-    // Smooth Scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
+    // SMOOTH SCROLL
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true
     });
   
-    // GSAP Initialization
-    gsap.registerPlugin(ScrollTrigger);
-  
-    // Hero Animations
-    gsap.from(".hero-content", {
+    // HERO TEXT FADE IN
+    gsap.from('.hero-text', {
       opacity: 0,
       y: 50,
       duration: 1.5,
-      ease: "power4.out"
+      ease: 'power2.out',
+      delay: 0.5
     });
   
-    // Nebula rotation tween
-    gsap.to(".nebula-layer", {
-      rotation: 360,
-      duration: 300,
-      repeat: -1,
-      ease: "none",
-      transformOrigin: "50% 50%"
-    });
-  
-    // Gas-cloud drifting
-    gsap.to(".gas-cloud", {
-      x: "random(-300, 300)",
-      y: "random(-300, 300)",
-      scale: "random(0.8, 1.5)",
-      duration: "random(40, 80)",
-      repeat: -1,
-      repeatRefresh: true,
-      ease: "power1.inOut"
-    });
-  
-    // Headline fade-in
-    gsap.from(".animated-headline span", {
-      opacity: 0,
-      y: 50,
-      stagger: 0.2,
-      duration: 1.5,
-      ease: "power4.out"
-    });
-  
-    // Floating Orb
-    gsap.to(".floating-orb", {
-      x: "random(-100, 100, 5)",
-      y: "random(-50, 50, 5)",
-      scale: "random(0.9, 1.1)",
-      duration: 10,
-      repeat: -1,
-      repeatRefresh: true,
-      ease: "power1.inOut"
-    });
-  
-    // Section reveal on scroll
-    gsap.utils.toArray('.section').forEach(section => {
-      gsap.from(section, {
-        opacity: 0,
-        y: 50,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
+    // PARTICLES BACKGROUND (stars)
+    tsParticles.load('tsparticles', {
+      fullScreen: {
+        enable: true,
+        zIndex: -1
+      },
+      particles: {
+        number: {
+          value: 100,
+          density: { enable: true, value_area: 800 }
+        },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.8,
+          random: true
+        },
+        size: {
+          value: 2,
+          random: true
+        },
+        move: {
+          enable: true,
+          speed: 0.2,
+          direction: "none",
+          outModes: { default: "out" }
         }
-      });
-    });
-  
-    // Progress bar fills
-    gsap.utils.toArray('.progress-bar span').forEach(bar => {
-      gsap.from(bar, {
-        width: 0,
-        scrollTrigger: {
-          trigger: bar,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: false },
+          onClick: { enable: false }
         }
-      });
+      },
+      detectRetina: true
     });
   
-    // Particle field
-    function createParticles() {
-      const container = document.querySelector('.particles-container');
-      for (let i = 0; i < 100; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
+    // ————— SHOOTING STARS SETUP —————
   
-        gsap.set(particle, {
-          x: Math.random() * 100 + 'vw',
-          y: Math.random() * 100 + 'vh',
-          opacity: () => Math.random() * 0.3 + 0.2,
-          scale: () => Math.random() * 0.5 + 0.3
-        });
+    const STAR_RATE   = 20;            // stars per second
+    const STAR_SPEED  = 1.5;            // how long (s) each star takes to cross
+    const SHOOT_ANGLE = -20;            // degrees (negative = up→right)
   
-        gsap.to(particle, {
-          x: '+=random(-200, 200)%',
-          y: '+=random(-200, 200)%',
-          duration: 'random(20, 40)',
-          ease: 'sine.inOut',
-          modifiers: {
-            x: x => parseFloat(x) % window.innerWidth,
-            y: y => parseFloat(y) % window.innerHeight
-          },
-          repeat: -1
-        });
+    const radians = SHOOT_ANGLE * Math.PI / 180;
+    const deltaX  = window.innerWidth * 1.5;
+    const deltaY  = deltaX * Math.tan(radians);
   
-        container.appendChild(particle);
-      }
-    }
-    createParticles();
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      document.body.appendChild(star);
   
-    // Expose createShootingStar for console testing
-    window.createShootingStar = createShootingStar;
+      const startX = Math.random() * window.innerWidth;
+      const startY = -10;
   
-    // Kick off shooting-stars loop
-    setInterval(() => {
-      createShootingStar();
-    }, 2000 + Math.random() * 6000);
+      gsap.set(star, { x: startX, y: startY, rotation: SHOOT_ANGLE, opacity: 0 });
   
-    // Initial few stars
-    for (let i = 0; i < 3; i++) {
-      setTimeout(createShootingStar, Math.random() * 3000);
+      gsap.to(star, {
+        duration: STAR_SPEED,
+        x: `+=${deltaX}`,
+        y: `+=${deltaY}`,
+        opacity: 1,
+        ease: 'none',
+        onComplete: () => star.remove()
+      });
     }
   
-    // CTA Hover effect
-    document.querySelector('.cta-button').addEventListener('mousemove', (e) => {
-      const rect = e.target.getBoundingClientRect();
-      e.target.style.setProperty('--x', `${e.clientX - rect.left}px`);
-      e.target.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    const interval = 1000 / STAR_RATE;
+    setInterval(createShootingStar, interval);
+  
+    // ————— END SHOOTING STARS SETUP —————
+  
+    // CTA BUTTON HOVER ANIMATION
+    const ctaButton = document.querySelector('.cta-button');
+    ctaButton.addEventListener('mouseenter', () => {
+      gsap.to(ctaButton, { scale: 1.1, duration: 0.3, ease: 'power2.out' });
+    });
+    ctaButton.addEventListener('mouseleave', () => {
+      gsap.to(ctaButton, { scale: 1, duration: 0.3, ease: 'power2.out' });
     });
   });
-  
-  
-  // Shooting-star creation function
-  function createShootingStar() {
-    const star = document.createElement('div');
-    star.className = 'shooting-star';
-  
-    // Random start position / angle
-    const startX = Math.random() * window.innerWidth;
-    const startY = Math.random() * window.innerHeight * 0.4;
-    const angle = -15 + Math.random() * 30; // degrees
-  
-    // Append before animating
-    document.body.appendChild(star);
-  
-    // Set initial props
-    gsap.set(star, {
-      x: startX,
-      y: startY,
-      rotation: angle,
-      opacity: 0
-    });
-  
-    // Animate across and fade out
-    gsap.to(star, {
-      duration: 1.5 + Math.random() * 2,
-      x: `+=${window.innerWidth * 1.5}`,
-      y: `+=${window.innerWidth * Math.tan(angle * Math.PI / 180)}`,
-      opacity: 1,
-      ease: "power1.out",
-      onComplete: () => star.remove()
-    });
-  }
   
