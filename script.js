@@ -1,9 +1,7 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         menuToggle.classList.toggle('active');
@@ -19,18 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // GSAP Animations
+    // GSAP Initialization
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero Elements
-    gsap.from('.hero-content', {
+    // Hero Animations
+    gsap.from(".hero-content", {
         opacity: 0,
         y: 50,
         duration: 1.5,
-        ease: 'power4.out'
+        ease: "power4.out"
     });
 
-    // Floating Orb Animation
+    gsap.from(".animated-headline span", {
+        opacity: 0,
+        y: 50,
+        stagger: 0.2,
+        duration: 1.5,
+        ease: "power4.out"
+    });
+
+    // Floating Orb
     gsap.to(".floating-orb", {
         x: "random(-100, 100, 5)",
         y: "random(-50, 50, 5)",
@@ -54,16 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add this to your existing GSAP animations
-    gsap.from(".animated-headline span", {
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 1.5,
-        ease: "power4.out"
-    });
-
-    // Progress Bar Animations
+    // Progress Bars
     gsap.utils.toArray('.progress-bar span').forEach(bar => {
         gsap.from(bar, {
             width: 0,
@@ -75,13 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Particle Animation (50 particles)
+    // Particles
     function createParticles() {
         const container = document.querySelector('.particles-container');
         for(let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
-            particle.className = 'particle';
-            
+            particle.className = 'particle';            
             gsap.set(particle, {
                 x: Math.random() * 100 + 'vw',
                 y: Math.random() * 100 + 'vh',
@@ -102,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     createParticles();
 
-    // CTA Button Hover Effect
+    // CTA Hover
     document.querySelector('.cta-button').addEventListener('mousemove', (e) => {
         const rect = e.target.getBoundingClientRect();
         e.target.style.setProperty('--x', `${e.clientX - rect.left}px`);
