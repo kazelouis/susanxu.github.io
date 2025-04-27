@@ -487,3 +487,99 @@ button[type="submit"]:hover {
     .cta-button { padding: 0.8rem 2rem; font-size: 0.9rem; }
 }
   
+.project-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.project-link:hover .project-image {
+    transform: scale(1.05);
+}
+
+/* Project Page Styles */
+.project-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: opacity 0.3s ease;
+}
+
+.back-button:hover {
+    opacity: 0.8;
+}
+
+.project-header {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.project-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-meta {
+    display: flex;
+    gap: 2rem;
+}
+
+.meta-item {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.meta-label {
+    font-weight: 600;
+}
+
+.project-hero-image {
+    margin: 2rem 0;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.project-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.tech-stack {
+    margin: 2rem 0;
+}
+
+.tech-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.tech-badge {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    font-size: 0.9rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    padding: 1.5rem;
+}
