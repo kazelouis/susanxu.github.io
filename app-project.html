@@ -104,5 +104,48 @@
             </section>
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            function showSlide(index) {
+                currentSlide = (index + slides.length) % slides.length;
+                
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                slides[currentSlide].classList.add('active');
+                indicators[currentSlide].classList.add('active');
+                
+                const activeVideo = slides[currentSlide].querySelector('video');
+                if (activeVideo) {
+                    activeVideo.currentTime = 0;
+                    activeVideo.play().catch(error => {
+                        console.log('Video autoplay blocked:', error);
+                    });
+                }
+            }
+        
+            // Initialize first slide
+            showSlide(0);
+        
+            // Button handlers
+            document.querySelector('.carousel-prev').addEventListener('click', () => showSlide(currentSlide - 1));
+            document.querySelector('.carousel-next').addEventListener('click', () => showSlide(currentSlide + 1));
+        
+            // Indicator handlers
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => showSlide(index));
+            });
+        
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+                if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+            });
+        });
+        </script>
 </body>
 </html>
