@@ -747,3 +747,24 @@ button[type="submit"]:hover {
     padding: 1.5rem 2rem;
     margin: 1rem 0;
 }
+
+/* Add to your CSS */
+.process-step .feature-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 1rem;
+    object-fit: contain; /* Prevents distortion */
+}
+
+/* Optional: Add max-height constraint */
+.process-step .feature-image {
+    max-height: 400px; /* Adjust based on your needs */
+    object-position: center;
+}
+
+/* Ensure container doesn't overflow */
+.process-step {
+    overflow: hidden;
+}
